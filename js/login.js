@@ -39,6 +39,7 @@ function login() {
         window.location.href = 'index.html';
     })
     .catch(error => {
+        toast_message('¡Hubo un problema con la solicitud!', 'Error');
         console.error('¡Hubo un problema con la solicitud!', error);
     });
 }
