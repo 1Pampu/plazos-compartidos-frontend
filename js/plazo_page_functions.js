@@ -2,7 +2,7 @@ function plazo_info(plazo){
     // Remplazar los datos en el HTML
     var plazo_div = document.getElementById('plazo-info')
     plazo_div.innerHTML = `
-        <div class="card">
+        <div class="card" style="min-width:300px;">
             <div class="card-body">
                 <h3 class="card-title">${plazo.titulo}</h3>
                 <p class="card-text mb-1"><strong>Total:</strong> $${plazo.monto}</p>
@@ -37,12 +37,13 @@ function plazo_entidades(entidades){
         entidad_card.classList.add('mt-1');
         entidad_card.classList.add('mb-1');
         entidad_card.style.minWidth = '250px';
+        // ! LINKS ACA, 2
         entidad_card.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title">${entidad.nombre}</h5>
                 <p class="card-text mb-2"><strong>Total:</strong> $${entidad.monto}</p>
                 <div class="d-flex justify-content-end">
-                    <div class="btn-group btn-group-sm" role="group" >
+                    <div class="btn-group btn-group-sm" role="group">
                         <a class="btn btn-outline-primary" href="">Operaciones</a>
                         <a class="btn btn-outline-success" href="">Acciones</a>
                     </div>
