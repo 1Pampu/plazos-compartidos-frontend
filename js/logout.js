@@ -1,0 +1,5 @@
+// Funcion para desloguear al usuario
+function logout(){
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+}
