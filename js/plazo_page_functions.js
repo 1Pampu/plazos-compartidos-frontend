@@ -1,5 +1,29 @@
+function calcular_intereses(plazo_id){
+    // Obtener el token de autenticación
+    const token = localStorage.getItem('token');
+
+    // Obtener la informacion del plazo
+    fetch(API_URL + 'api/plazos/' + plazo_id + '/calcular_intereses',{
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        // Recargar la pagina
+        location.reload();
+    })
+    .catch(error => {
+        toast_message('Error al calcular los intereses', 'Error');
+        console.error('¡Hubo un problema con la solicitud!', error);
+    });
+}
+
 function plazo_info(plazo){
-    // Remplazar los datos en el HTML
+    // Remplazar los datos en la card
     var plazo_div = document.getElementById('plazo-info')
     plazo_div.innerHTML = `
         <div class="card" style="min-width:300px;">
@@ -10,6 +34,12 @@ function plazo_info(plazo){
                 <p class="card-text"><strong>Entidades:</strong> ${plazo.num_entidades}</p>
             </div>
         </div>
+    `;
+
+    // Modificar la funcion que llama el boton
+    var div_boton = document.getElementById('boton-intereses');
+    div_boton.innerHTML = `
+        <button  type="button" class="btn btn-primary" onclick="calcular_intereses(${plazo.id})">Confirmar</button>
     `;
 }
 
