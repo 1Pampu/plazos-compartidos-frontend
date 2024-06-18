@@ -31,7 +31,7 @@ function plazo_info(plazo){
                 <h3 class="card-title">${plazo.titulo}</h3>
                 <p class="card-text mb-1"><strong>Total:</strong> $${plazo.monto.toFixed(2)}</p>
                 <p class="card-text mb-1"><strong>Interés:</strong> ${plazo.interes}%</p>
-                <p class="card-text"><strong>Entidades:</strong> ${plazo.num_entidades}</p>
+                <p class="card-text"><strong>Entidades: </strong id="entidades-count">${plazo.num_entidades}</p>
             </div>
         </div>
     `;
@@ -111,3 +111,10 @@ function agregar_entidad(entidad){
     `;
     container.appendChild(entidad_card);
 }
+
+// function sumar_num_entidad(){
+//     // Obtenemos el contador de entidades y extraemos el numero
+//     var entidades_count = document.getElementById('entidades-count');
+//     var num_entidades = parseFloat(entidades_count.innerHTML);
+//     entidades_count.innerHTML = ` ${num_entidades + 1}`;
+// }

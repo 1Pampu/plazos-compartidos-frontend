@@ -55,4 +55,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.error('¡Hubo un problema con la solicitud!', error);
     });
 
+    // Envio formulario de creacion de entidad
+    document.getElementById('form-entidad').addEventListener('submit', function(event) {
+        // Prevenir el envio normal del formulario
+        event.preventDefault();
+
+        // Obtener los datos del formulario
+        const formData = new FormData(this);
+
+        // Convertir FormData a un objeto JSON
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Enviar los datos a la API con cabeceras personalizadas
+        fetch(API_URL + 'api/plazos/' + plazo_id + '/entidades', {
+            method: 'POST',
+            headers: {
+                'Authorization':  `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            agregar_entidad(data);
+            // sumar_num_entidad();
+            toast_message('Entidad creada correctamente.', 'Notificación');
+        })
+        .catch((error) => {
+            toast_message('Error al crear la entidad', 'Error');
+        });
+    });
 });

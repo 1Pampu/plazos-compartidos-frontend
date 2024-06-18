@@ -38,7 +38,6 @@
                 <div id="plazo-info">
                     <div class="spinner-border" role="status"></div>
                 </div>
-                <!-- MODAL ACA -->
                 <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#interesesModal">Intereses!</button>
             </div>
             <div id="pie-chart"></div>
@@ -48,8 +47,7 @@
             <div class="spinner-border" role="status"></div>
         </div>
         <div class="d-flex justify-content-center">
-            <!-- LINK ACA -->
-            <a href="" class="btn btn-success mt-2">Agregar Entidad</a>
+            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#agregarEntidadModal">Agregar Entidad</button>
         </div>
         <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
     </main>
@@ -67,15 +65,32 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <div id="boton-intereses">
-                    <!-- <button  type="button" class="btn btn-primary">Confirmar</button> -->
-                </div>
+                <div id="boton-intereses"></div>
             </div>
           </div>
         </div>
     </div>
 
     <!-- MODAL AGREGAR ENTIDADES -->
-
+    <div class="modal fade" id="agregarEntidadModal" tabindex="-1" aria-labelledby="agregarEntidadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="agregarEntidadModalLabel">Agregar Entidad</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" id="form-entidad">
+                <div class="modal-body">
+                    <label for="entidad-nombre">Nombre:</label>
+                    <input class="form-control" type="text" id="entidad-nombre" required maxlength="100" autocomplete="off" name="nombre">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
 </body>
 </html>
