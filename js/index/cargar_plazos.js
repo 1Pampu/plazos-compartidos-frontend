@@ -8,7 +8,7 @@ function cargar_plazos(plazo){
                     <p class="mb-0 me-auto ms-3">${plazo.titulo}</p>
                     <p class="mb-0 me-5 ms-3">${plazo.num_entidades}</p>
                     <p class="mb-0 me-5 ms-3">${plazo.interes}%</p>
-                    <p class="mb-0 me-3 ms-3">$${plazo.monto}</p>
+                    <p class="mb-0 me-3 ms-3">$${plazo.monto.toFixed(2)}</p>
                 </div>
             </div>
         </a>`;

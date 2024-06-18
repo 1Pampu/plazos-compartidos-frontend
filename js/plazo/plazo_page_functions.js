@@ -29,7 +29,7 @@ function plazo_info(plazo){
         <div class="card" style="min-width:300px;">
             <div class="card-body">
                 <h3 class="card-title">${plazo.titulo}</h3>
-                <p class="card-text mb-1"><strong>Total:</strong> $${plazo.monto}</p>
+                <p class="card-text mb-1"><strong>Total:</strong> $${plazo.monto.toFixed(2)}</p>
                 <p class="card-text mb-1"><strong>Interés:</strong> ${plazo.interes}%</p>
                 <p class="card-text"><strong>Entidades:</strong> ${plazo.num_entidades}</p>
             </div>
@@ -71,7 +71,7 @@ function plazo_entidades(entidades){
         entidad_card.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title">${entidad.nombre}</h5>
-                <p class="card-text mb-2"><strong>Total:</strong> $${entidad.monto}</p>
+                <p class="card-text mb-2"><strong>Total:</strong> $${entidad.monto.toFixed(2)}</p>
                 <div class="d-flex justify-content-end">
                     <div class="btn-group btn-group-sm" role="group">
                         <a class="btn btn-outline-primary" href="">Operaciones</a>
