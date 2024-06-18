@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     .then(response => {
         if (!response.ok) {
             alert('Error al obtener los datos del plazo');
-            windows.location.href = 'index.html';
+            window.location.href = 'index.html';
         }
         return response.json();
     })
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     .then(response => {
         if (!response.ok) {
             alert('Error al obtener los datos del plazo');
-            windows.location.href = 'index.html';
+            window.location.href = 'index.html';
         }
         return response.json();
     })
@@ -80,9 +80,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         })
         .then(response => response.json())
         .then(data => {
-            agregar_entidad(data);
-            // sumar_num_entidad();
-            toast_message('Entidad creada correctamente.', 'Notificación');
+            toast_message('Entidad creada correctamente', 'Notificación');
+            window.location.reload();
         })
         .catch((error) => {
             toast_message('Error al crear la entidad', 'Error');
