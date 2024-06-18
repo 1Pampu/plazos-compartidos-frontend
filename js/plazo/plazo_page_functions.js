@@ -56,7 +56,7 @@ function plazo_entidades(entidades){
     let lista_montos = [];
     let lista_nombres = [];
     entidades.forEach(entidad => {
-        lista_montos.push(entidad.monto);
+        lista_montos.push(entidad.monto.toFixed(2));
         lista_nombres.push(entidad.nombre);
 
         // Agregar la tarjeta de la entidad
