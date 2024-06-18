@@ -58,29 +58,7 @@ function plazo_entidades(entidades){
     entidades.forEach(entidad => {
         lista_montos.push(entidad.monto.toFixed(2));
         lista_nombres.push(entidad.nombre);
-
-        // Agregar la tarjeta de la entidad
-        var entidad_card = document.createElement('div');
-        entidad_card.classList.add('card');
-        entidad_card.classList.add('me-1');
-        entidad_card.classList.add('ms-1');
-        entidad_card.classList.add('mt-1');
-        entidad_card.classList.add('mb-1');
-        entidad_card.style.minWidth = '250px';
-        // ! LINKS ACA, 2
-        entidad_card.innerHTML = `
-            <div class="card-body">
-                <h5 class="card-title">${entidad.nombre}</h5>
-                <p class="card-text mb-2"><strong>Total:</strong> $${entidad.monto.toFixed(2)}</p>
-                <div class="d-flex justify-content-end">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <a class="btn btn-outline-primary" href="">Operaciones</a>
-                        <a class="btn btn-outline-success" href="">Acciones</a>
-                    </div>
-                </div>
-            </div>
-        `;
-        container.appendChild(entidad_card);
+        agregar_entidad(entidad);
     });
 
     // Graficamos los datos
@@ -104,4 +82,32 @@ function grafico_torta(montos, nombres){
 
     // Generamos el grafico
     Plotly.newPlot('pie-chart', data, layout, {'displayModeBar': false});
+}
+
+function agregar_entidad(entidad){
+    // Obtener el contenedor de entidades
+    var container = document.getElementById('entidades-container');
+
+    // Agregar la tarjeta de la entidad
+    var entidad_card = document.createElement('div');
+    entidad_card.classList.add('card');
+    entidad_card.classList.add('me-1');
+    entidad_card.classList.add('ms-1');
+    entidad_card.classList.add('mt-1');
+    entidad_card.classList.add('mb-1');
+    entidad_card.style.minWidth = '250px';
+    // ! LINKS ACA, 2
+    entidad_card.innerHTML = `
+        <div class="card-body">
+            <h5 class="card-title">${entidad.nombre}</h5>
+            <p class="card-text mb-2"><strong>Total:</strong> $${entidad.monto.toFixed(2)}</p>
+            <div class="d-flex justify-content-end">
+                <div class="btn-group btn-group-sm" role="group">
+                    <a class="btn btn-outline-primary" href="">Operaciones</a>
+                    <a class="btn btn-outline-success" href="">Acciones</a>
+                </div>
+            </div>
+        </div>
+    `;
+    container.appendChild(entidad_card);
 }
