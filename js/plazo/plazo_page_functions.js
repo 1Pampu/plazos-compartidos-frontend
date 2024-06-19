@@ -104,8 +104,8 @@ function agregar_entidad(entidad){
             <div class="d-flex justify-content-end">
                 <div class="btn-group btn-group-sm" role="group">
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarEntidadModal" onclick="updateEliminarModal('${entidad.nombre}', ${entidad.id})">Eliminar</button>
-                    <a class="btn btn-outline-warning" href="">Retirar</a>
-                    <a class="btn btn-outline-success" href="">Depositar</a>
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#retirarDepositarModal" onclick="updateRetirarDepositarModal('${entidad.nombre}', ${entidad.id}, 'Retiro')">Retirar</button>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#retirarDepositarModal" onclick="updateRetirarDepositarModal('${entidad.nombre}', ${entidad.id}, 'Deposito')">Depositar</button>
                 </div>
             </div>
         </div>
@@ -149,4 +149,28 @@ function eliminarEntidad(entidad_id){
         toast_message('Error al eliminar la entidad', 'Error');
         console.error('¡Hubo un problema con la solicitud!', error);
     });
+}
+
+function updateRetirarDepositarModal(nombre, entidad_id, tipo){
+    // Actualizar el titulo de el modal
+    var tipo_input = document.getElementById('tipo-input');
+    tipo_input.value = tipo;
+
+    // Actualizar el nombre de la entidad
+    var entidad_input = document.getElementById('entidad-input');
+    entidad_input.value = nombre;
+
+    // Actualizar el id de la entidad
+    var id_div = document.getElementById('id-retirar-depositar');
+    id_div.innerHTML = entidad_id;
+
+    // Actualizar la llamada a la funcion
+    if (tipo == 'Retiro'){
+        var entidad_id_input = document.getElementById('retirarDepositarBoton');
+        entidad_id_input.innerHTML = `<button type="submit" class="btn btn-danger">Retirar</button>`
+    }
+    if (tipo == 'Deposito'){
+        var entidad_id_input = document.getElementById('retirarDepositarBoton');
+        entidad_id_input.innerHTML = `<button type="submit" class="btn btn-success">Depositar</button>`
+    }
 }

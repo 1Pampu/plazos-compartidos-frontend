@@ -81,7 +81,7 @@
             </div>
             <form method="POST" id="form-entidad">
                 <div class="modal-body">
-                    <label for="entidad-nombre">Nombre:</label>
+                    <label class="form-label" for="entidad-nombre">Nombre:</label>
                     <input class="form-control" type="text" id="entidad-nombre" required maxlength="100" autocomplete="off" name="nombre">
                 </div>
                 <div class="modal-footer">
@@ -108,6 +108,39 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <div id="eliminarEntidadBoton"></div>
             </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- MODAL RETIRAR / DEPOSITAR -->
+    <div class="modal fade" id="retirarDepositarModal" tabindex="-1" aria-labelledby="retirarDepositarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Hacer una operacion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form  id="form-retiro-deposito">
+                <span class="d-none" id="id-retirar-depositar"></span>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="text" disabled id="entidad-input">
+                        <span class="input-group-text">Tipo:</span>
+                        <input class="form-control" type="text" id="tipo-input" name="tipo" id="tipo-input" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Monto:</span>
+                        <span class="input-group-text">$</span>
+                        <input class="form-control" type="number" name="monto" required min="0">
+                        <span class="input-group-text">Fecha:</span>
+                        <input class="form-control" type="date" name="fecha" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <div id="retirarDepositarBoton"></div>
+                </div>
+            </form>
           </div>
         </div>
     </div>

@@ -87,4 +87,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
             toast_message('Error al crear la entidad', 'Error');
         });
     });
+
+    // Envio formulario de deposito / retiro
+    document.getElementById('form-retiro-deposito').addEventListener('submit', function(event) {
+        // Prevenir el envio normal del formulario
+        event.preventDefault();
+
+        // Obtener los datos del formulario
+        const formData = new FormData(this);
+
+        // Convertir FormData a un objeto JSON
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Obtener el id de la entidad
+        const entidad_id = document.getElementById('id-retirar-depositar').innerHTML;
+
+        // Enviar la solicitud para retirar o depositar
+        fetch(API_URL + 'api/plazos/' + plazo_id + '/operaciones/' + entidad_id, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al realizar la operación');
+            }
+            return response.json();
+        })
+        .then(data => {
+            toast_message('Operación realizada correctamente.', 'Notificación');
+            location.reload();
+        })
+        .catch(error => {
+            toast_message('Error al realizar la operación', 'Error');
+            console.error('¡Hubo un problema con la solicitud!', error);
+        });
+    });
 });
