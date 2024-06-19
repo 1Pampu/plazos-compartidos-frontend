@@ -103,8 +103,9 @@ function agregar_entidad(entidad){
             <p class="card-text mb-2"><strong>Total:</strong> $${entidad.monto.toFixed(2)}</p>
             <div class="d-flex justify-content-end">
                 <div class="btn-group btn-group-sm" role="group">
-                    <a class="btn btn-outline-primary" href="">Operaciones</a>
-                    <a class="btn btn-outline-success" href="">Acciones</a>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarEntidadModal" onclick="updateEliminarModal('${entidad.nombre}', ${entidad.id})">Eliminar</button>
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#retirarDepositarModal" onclick="updateRetirarDepositarModal('${entidad.nombre}', ${entidad.id}, 'Retiro')">Retirar</button>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#retirarDepositarModal" onclick="updateRetirarDepositarModal('${entidad.nombre}', ${entidad.id}, 'Deposito')">Depositar</button>
                 </div>
             </div>
         </div>
@@ -112,9 +113,64 @@ function agregar_entidad(entidad){
     container.appendChild(entidad_card);
 }
 
-// function sumar_num_entidad(){
-//     // Obtenemos el contador de entidades y extraemos el numero
-//     var entidades_count = document.getElementById('entidades-count');
-//     var num_entidades = parseFloat(entidades_count.innerHTML);
-//     entidades_count.innerHTML = ` ${num_entidades + 1}`;
-// }
+function updateEliminarModal(nombre, entidad_id){
+    // Actualizar el nombre de la entidad
+    var entidad_nombre = document.getElementById('entidad-nombre-eliminar');
+    entidad_nombre.innerHTML = nombre;
+
+    // Actualizar el id de la funcion de eliminar
+    var entidad_id_input = document.getElementById('eliminarEntidadBoton');
+    entidad_id_input.innerHTML = `<button type="submit" class="btn btn-danger" onclick="eliminarEntidad(${entidad_id})">Eliminar</button>`
+}
+
+function eliminarEntidad(entidad_id){
+    // Obtener el token de autenticación
+    const token = localStorage.getItem('token');
+
+    // Obtener el id del plazo
+    const urlParams = new URLSearchParams(window.location.search);
+    const plazo_id = urlParams.get('plazo')
+
+    // Enviar la solicitud para eliminar la entidad
+    fetch(API_URL + 'api/plazos/' + plazo_id + '/entidades/' + entidad_id, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        toast_message('Entidad eliminada correctamente.', 'Notificación');
+        location.reload();
+    })
+    .catch(error => {
+        toast_message('Error al eliminar la entidad', 'Error');
+        console.error('¡Hubo un problema con la solicitud!', error);
+    });
+}
+
+function updateRetirarDepositarModal(nombre, entidad_id, tipo){
+    // Actualizar el titulo de el modal
+    var tipo_input = document.getElementById('tipo-input');
+    tipo_input.value = tipo;
+
+    // Actualizar el nombre de la entidad
+    var entidad_input = document.getElementById('entidad-input');
+    entidad_input.value = nombre;
+
+    // Actualizar el id de la entidad
+    var id_div = document.getElementById('id-retirar-depositar');
+    id_div.innerHTML = entidad_id;
+
+    // Actualizar la llamada a la funcion
+    if (tipo == 'Retiro'){
+        var entidad_id_input = document.getElementById('retirarDepositarBoton');
+        entidad_id_input.innerHTML = `<button type="submit" class="btn btn-danger">Retirar</button>`
+    }
+    if (tipo == 'Deposito'){
+        var entidad_id_input = document.getElementById('retirarDepositarBoton');
+        entidad_id_input.innerHTML = `<button type="submit" class="btn btn-success">Depositar</button>`
+    }
+}
