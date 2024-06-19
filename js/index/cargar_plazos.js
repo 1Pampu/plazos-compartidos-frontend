@@ -2,15 +2,14 @@ function cargar_plazos(plazo){
     var contenedor = document.getElementById('data-container');
     var plazo_div = document.createElement('div');
     plazo_div.innerHTML = `
-        <a href="plazo.html?plazo=${plazo.id}" class="text-decoration-none">
-            <div class="alert alert-secondary mb-2">
-                <div class="d-flex justify-content-end">
-                    <p class="mb-0 me-auto ms-3">${plazo.titulo}</p>
-                    <p class="mb-0 me-5 ms-3">${plazo.num_entidades}</p>
-                    <p class="mb-0 me-5 ms-3">${plazo.interes}%</p>
-                    <p class="mb-0 me-3 ms-3">$${plazo.monto.toFixed(2)}</p>
-                </div>
-            </div>
+        <a href="plazo.html?plazo=${plazo.id}">
+            <li class="table-row">
+                <div class="col col-1" data-label="Job Id">${plazo.titulo}</div>
+                <div class="col col-2" data-label="Customer Name">${plazo.num_entidades}</div>
+                <div class="col col-3" data-label="Amount">${plazo.interes}%</div>
+                <div class="col col-4" data-label="Payment Status">$${plazo.monto.toFixed(2)}</div>
+            </li>
         </a>`;
     contenedor.appendChild(plazo_div);
 }
+
