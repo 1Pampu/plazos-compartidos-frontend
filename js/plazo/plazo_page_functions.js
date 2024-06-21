@@ -96,7 +96,6 @@ function agregar_entidad(entidad){
     entidad_card.classList.add('mt-1');
     entidad_card.classList.add('mb-1');
     entidad_card.style.minWidth = '250px';
-    // ! LINKS ACA, 2
     entidad_card.innerHTML = `
         <div class="card-body">
             <h5 class="card-title">${entidad.nombre}</h5>

@@ -25,10 +25,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
 
             const data = await response.json();
-            // Mostrar los datos en el contenedor
-            data.forEach(plazo => {
-                cargar_plazos(plazo);
-            });
+            // Comprobar si hay mas de 0 plazos
+            if (data.length === 0) {
+                document.getElementById('data-container').innerHTML = '<h2>No hay plazos</h2>';
+            } else {
+                document.getElementById('data-container').innerHTML = '';
+                data.forEach(plazo => {
+                    cargar_plazos(plazo);
+                });
+            }
 
         } catch (error) {
             console.error('Fetch data error:', error);
@@ -41,4 +46,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (token) {
         fetchData();
     }
+
+    // Enviar formulario de creacion de plazo
+    document.getElementById('crearPlazoForm').addEventListener('submit', function(event) {
+        // Prevenir el envio normal del formulario
+        event.preventDefault();
+
+        // Obtener los datos del formulario
+        const formData = new FormData(this);
+
+        // Convertir FormData a un objeto JSON
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Enviar los datos a la API con cabeceras personalizadas
+        fetch(API_URL + 'api/plazos', {
+            method: 'POST',
+            headers: {
+                'Authorization':  `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            cargar_plazos(data)
+            toast_message('Plazo creado correctamente', 'Notificación');
+        })
+        .catch((error) => {
+            console.log(error)
+            toast_message('Error al crear el plazo', 'Error');
+        });
+    })
 });
