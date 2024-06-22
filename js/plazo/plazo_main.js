@@ -48,8 +48,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response.json();
     })
     .then(data => {
-        // Cargar los datos en la pagina
-        plazo_entidades(data);
+        // Comprobar si hay mas de 0 plazos
+        if (data.length === 0) {
+            document.getElementById('data-loading').innerHTML = '<h4 class="text-center pb-2 mb-0">No hay plazos</h4>';
+        } else {
+            plazo_entidades(data);
+        }
     })
     .catch(error => {
         console.error('¡Hubo un problema con la solicitud!', error);
@@ -81,7 +85,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .then(response => response.json())
         .then(data => {
             toast_message('Entidad creada correctamente', 'Notificación');
-            window.location.reload();
+            agregar_entidad(data);
         })
         .catch((error) => {
             toast_message('Error al crear la entidad', 'Error');
