@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             const data = await response.json();
             // Comprobar si hay mas de 0 plazos
             if (data.length === 0) {
-                document.getElementById('data-container').innerHTML = '<h2>No hay plazos</h2>';
+                document.getElementById('data-loading').innerHTML = '<h2 class="text-center pb-2">No hay plazos</h2>';
             } else {
-                document.getElementById('data-container').innerHTML = '';
+                document.getElementById('data-loading').innerHTML = '';
                 data.forEach(plazo => {
                     cargar_plazos(plazo);
                 });
