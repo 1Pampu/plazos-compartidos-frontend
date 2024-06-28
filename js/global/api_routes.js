@@ -1,2 +1,2 @@
 // Rutas de la API
-const API_URL = 'https://plazos-fijos.onrender.com/';
+const API_URL = 'http://server-martin.duckdns.org/plazos-compartidos/';
