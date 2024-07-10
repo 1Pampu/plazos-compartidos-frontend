@@ -35,12 +35,6 @@ function plazo_info(plazo){
             </div>
         </div>
     `;
-
-    // Modificar la funcion que llama el boton
-    var div_boton = document.getElementById('boton-intereses');
-    div_boton.innerHTML = `
-        <button  type="button" class="btn btn-primary" onclick="calcular_intereses(${plazo.id})">Confirmar</button>
-    `;
 }
 
 function plazo_entidades(entidades){
