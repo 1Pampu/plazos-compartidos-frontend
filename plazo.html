@@ -13,6 +13,10 @@
     <script src="js/global/toast.js"></script>
     <script src="js/plazo/plazo_page_functions.js"></script>
     <script src="js/plazo/plazo_main.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const plazo_id = urlParams.get('plazo')
+    </script>
 </head>
 <body>
     <header>
@@ -42,18 +46,37 @@
         <div class="mt-3">
             <ul class="nav nav-tabs justify-content-center">
                 <li class="nav-item">
-                  <button class="nav-link active" ><h3>Entidades</h3></button>
+                  <button class="nav-link" id="request-entidades" onclick="obtener_y_cargar_entidades(plazo_id)"><h3>Entidades</h3></button>
                 </li>
                 <li class="nav-item">
-                  <button class="nav-link" href="#"><h3>Operaciones</h3></button>
+                  <button class="nav-link" id="request-operaciones" onclick="obtener_y_cargar_operaciones(plazo_id)"><h3>Operaciones</h3></button>
                 </li>
             </ul>
-            <div id="data-loading" class="d-flex justify-content-center mb-0 mt-2">
-                <div class="spinner-border" role="status"></div>
+            <div id="entidades-big-container">
+                <div id="data-loading" class="d-flex justify-content-center mb-0 mt-2">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+                <div id="entidades-container" class="d-flex flex-wrap justify-content-center mt-1 mx-auto" style="max-width:1000px"></div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#agregarEntidadModal">Agregar Entidad</button>
+                </div>
             </div>
-            <div id="entidades-container" class="d-flex flex-wrap justify-content-center mt-1 mx-auto" style="max-width:1000px"></div>
-            <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#agregarEntidadModal">Agregar Entidad</button>
+            <div class="d-none" id="operaciones-big-container">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Entidad</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Monto</th>
+                      </tr>
+                    </thead>
+                    <tbody id="table-operaciones">
+                    </tbody>
+                </table>
+                <div id="data-loading-operaciones" class="d-flex justify-content-center mb-0 mt-2">
+                    <div class="spinner-border" role="status"></div>
+                </div>
             </div>
         </div>
 

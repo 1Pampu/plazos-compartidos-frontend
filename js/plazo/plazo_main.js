@@ -34,30 +34,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Obtener las entidades del plazo
-    fetch(API_URL + `api/plazos/${plazo_id}/entidades` ,{
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            alert('Error al obtener los datos del plazo');
-            window.location.href = 'index.html';
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Comprobar si hay mas de 0 plazos
-        if (data.length === 0) {
-            document.getElementById('data-loading').innerHTML = '<h4 class="text-center pb-2 mb-0">No hay plazos</h4>';
-        } else {
-            plazo_entidades(data);
-        }
-    })
-    .catch(error => {
-        console.error('¡Hubo un problema con la solicitud!', error);
-    });
+    obtener_y_cargar_entidades(plazo_id);
 
     // Envio formulario de creacion de entidad
     document.getElementById('form-entidad').addEventListener('submit', function(event) {

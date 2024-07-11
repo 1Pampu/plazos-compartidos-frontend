@@ -173,3 +173,115 @@ function updateRetirarDepositarModal(nombre, entidad_id, tipo){
         entidad_id_input.innerHTML = `<button type="submit" class="btn btn-success">Depositar</button>`
     }
 }
+
+function obtener_y_cargar_entidades(plazo_id){
+    // Obtener el token de autenticación
+    const token = localStorage.getItem('token');
+
+    active_button_requests(true)
+
+    fetch(API_URL + `api/plazos/${plazo_id}/entidades` ,{
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert('Error al obtener los datos del plazo');
+            window.location.href = 'index.html';
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Comprobar si hay mas de 0 plazos
+        if (data.length === 0) {
+            document.getElementById('data-loading').innerHTML = '<h4 class="text-center pb-2 mb-0">No hay plazos</h4>';
+        } else {
+            plazo_entidades(data);
+        }
+    })
+    .catch(error => {
+        console.error('¡Hubo un problema con la solicitud!', error);
+    });
+}
+
+function active_button_requests(bool){
+    entidades = document.getElementById('request-entidades')
+    operaciones = document.getElementById('request-operaciones')
+    contenedor_entidades = document.getElementById('entidades-big-container')
+    contenedor_operaciones = document.getElementById('operaciones-big-container')
+
+    if (bool == true) {
+        entidades.classList.add('active')
+        operaciones.classList.remove('active')
+        contenedor_entidades.classList.remove('d-none')
+        contenedor_operaciones.classList.add('d-none')
+    } else {
+        operaciones.classList.add('active')
+        entidades.classList.remove('active')
+        contenedor_entidades.classList.add('d-none')
+        contenedor_operaciones.classList.remove('d-none')
+    }
+}
+
+function obtener_y_cargar_operaciones(plazo_id){
+    // Obtener el token de autenticación
+    const token = localStorage.getItem('token');
+
+    active_button_requests(false)
+
+    fetch(API_URL + `api/plazos/${plazo_id}/operaciones` ,{
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert('Error al obtener las operaciones del plazo');
+            window.location.href = 'index.html';
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Comprobar si hay mas de 0 plazos
+        if (data.length === 0) {
+            document.getElementById('data-loading-operacioens').innerHTML = '<h4 class="text-center pb-2 mb-0">No hay operaciones</h4>';
+        } else {
+            cargar_operaciones(data)
+        }
+    })
+    .catch(error => {
+        console.error('¡Hubo un problema con la solicitud!', error);
+    });
+}
+
+function cargar_operaciones(operaciones){
+    // Obtener el contenedor de operaciones
+    var container = document.getElementById('table-operaciones');
+    container.innerHTML = '';
+
+    // Eliminar el spinner
+    document.getElementById('data-loading-operaciones').innerHTML = '';
+
+    // Agregar las operaciones a la tabla
+    operaciones.forEach(operacion => {
+        var operacion_row = document.createElement('tr');
+        if (operacion.tipo == 'Deposito'){
+            operacion_row.classList.add('table-success');
+        } else if (operacion.tipo == 'Retiro'){
+            operacion_row.classList.add('table-danger');
+        }
+        else if (operacion.tipo == 'Interes'){
+            operacion_row.classList.add('table-primary');
+        }
+        operacion_row.innerHTML = `
+            <td>${operacion.entidad_nombre}</td>
+            <td>${operacion.tipo}</td>
+            <td>${operacion.fecha}</td>
+            <td>$${operacion.monto.toFixed(2)}</td>
+        `;
+        container.appendChild(operacion_row);
+    });
+}
