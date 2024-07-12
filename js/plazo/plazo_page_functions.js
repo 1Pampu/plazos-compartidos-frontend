@@ -110,6 +110,13 @@ function agregar_entidad(entidad){
         </div>
     `;
     container.appendChild(entidad_card);
+
+    // Agregar boton a operaciones
+    var contenedor_buttons = document.getElementById('operaciones-buttons');
+    var button = document.createElement('div');
+    button.innerHTML = `
+        <button type="button" class="btn btn-outline-primary ms-2 me-2" onclick="obtener_y_cargar_operaciones(${plazo_id}, ${entidad.id})">${entidad.nombre}</button>`
+    contenedor_buttons.appendChild(button);
 }
 
 function updateEliminarModal(nombre, entidad_id){
@@ -178,6 +185,9 @@ function obtener_y_cargar_entidades(plazo_id){
     // Obtener el token de autenticación
     const token = localStorage.getItem('token');
 
+    var contenedor_buttons = document.getElementById('operaciones-buttons');
+    contenedor_buttons.innerHTML = '';
+
     active_button_requests(true)
 
     fetch(API_URL + `api/plazos/${plazo_id}/entidades` ,{
@@ -225,13 +235,19 @@ function active_button_requests(bool){
     }
 }
 
-function obtener_y_cargar_operaciones(plazo_id){
+function obtener_y_cargar_operaciones(plazo_id, entidad_id = null){
     // Obtener el token de autenticación
     const token = localStorage.getItem('token');
 
     active_button_requests(false)
 
-    fetch(API_URL + `api/plazos/${plazo_id}/operaciones` ,{
+    var fullURL = API_URL + `api/plazos/${plazo_id}/operaciones`
+
+    if (entidad_id != null){
+        fullURL += '/' + entidad_id
+    }
+
+    fetch(fullURL ,{
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
